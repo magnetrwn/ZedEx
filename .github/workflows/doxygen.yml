@@ -1,0 +1,28 @@
+name: Generate and Deploy Doxygen Documentation
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  doxygen-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen graphviz
+
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Copy necessary files
+        run: cp -r .doxygen/html/* . && cp extern/doxygen_theme_flat_design/src/img/* .
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .

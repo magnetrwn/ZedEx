@@ -3,6 +3,8 @@ add_library(libzedex ${SOURCE_FILES})
 
 target_include_directories(libzedex PUBLIC 
     ${PROJECT_SOURCE_DIR}/src
+    ${PROJECT_SOURCE_DIR}/src/core
+    ${PROJECT_SOURCE_DIR}/src/util
     ${PROJECT_SOURCE_DIR}/extern/toml11/include
 )
 
